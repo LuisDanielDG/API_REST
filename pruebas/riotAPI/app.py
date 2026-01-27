@@ -84,7 +84,28 @@ class champion:
                         "num": skin_num
                     })
             
-            return render.champion(champ["name"], champ["title"], champ["blurb"], latest_version, splash_url, skins)
+            skills = []
+            if "spells" in champ:
+                for spell in champ["spells"]:
+                    spell_name = spell.get("name", "Desconocido")
+                    spell_desc = spell.get("description", "Sin descripción")
+                    spell_image = f"https://ddragon.leagueoflegends.com/cdn/{latest_version}/img/spell/{spell.get('image', {}).get('full', '')}"
+                    skills.append({
+                        "name": spell_name,
+                        "description": spell_desc,
+                        "image": spell_image
+                    })
+            
+            passive = {}
+            if "passive" in champ:
+                passive_data = champ["passive"]
+                passive = {
+                    "name": passive_data.get("name", "Pasiva"),
+                    "description": passive_data.get("description", "Sin descripción"),
+                    "image": f"https://ddragon.leagueoflegends.com/cdn/{latest_version}/img/passive/{passive_data.get('image', {}).get('full', '')}"
+                }
+            
+            return render.champion(champ["name"], champ["title"], champ["blurb"], latest_version, splash_url, skins, skills, passive)
         except Exception as e:
             return render.error(f"Error al cargar el campeon: {str(e)}")
 
