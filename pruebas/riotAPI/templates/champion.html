@@ -1,4 +1,4 @@
-$def with (name, title, blurb, version, splash_url)
+$def with (name, title, blurb, version, splash_url, skins)
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -77,20 +77,31 @@ $def with (name, title, blurb, version, splash_url)
             border: 3px solid #daa520;
             box-shadow: 0 0 30px rgba(218, 165, 32, 0.4), inset 0 0 20px rgba(218, 165, 32, 0.1);
         }
-        .back-button {
-            display: inline-block;
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        button, .back-button {
             padding: 12px 25px;
             background: linear-gradient(135deg, #daa520 0%, #f0e68c 100%);
             color: #0a1e2e;
-            text-decoration: none;
+            border: none;
+            cursor: pointer;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
             box-shadow: 0 5px 15px rgba(218, 165, 32, 0.4);
             transition: all 0.3s;
             font-family: Playfair Display, serif;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
         }
-        .back-button:hover {
+        button:hover, .back-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(218, 165, 32, 0.6);
         }
@@ -104,27 +115,76 @@ $def with (name, title, blurb, version, splash_url)
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        .button-container {
-            text-align: center;
-            margin-top: 30px;
+        .skins-panel {
+            display: none;
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100vh;
+            width: 400px;
+            background: linear-gradient(135deg, rgba(10, 30, 46, 0.98) 0%, rgba(22, 57, 92, 0.98) 100%);
+            border-left: 3px solid #daa520;
+            box-shadow: -5px 0 30px rgba(218, 165, 32, 0.3);
+            overflow-y: auto;
+            padding: 30px 20px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
         }
-        button {
-            padding: 12px 25px;
-            background: linear-gradient(135deg, #daa520 0%, #f0e68c 100%);
-            color: #0a1e2e;
-            border: none;
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+        .skins-panel.active {
+            display: block;
+        }
+        .skins-close {
+            color: #daa520;
+            font-size: 28px;
             cursor: pointer;
+            float: right;
             font-weight: bold;
+        }
+        .skins-close:hover {
+            color: #f0e68c;
+        }
+        .skins-title {
+            font-family: Playfair Display, serif;
+            color: #daa520;
+            font-size: 24px;
+            margin-bottom: 20px;
+            margin-top: 10px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            box-shadow: 0 5px 15px rgba(218, 165, 32, 0.4);
-            transition: all 0.3s;
-            font-family: Playfair Display, serif;
-            font-size: 16px;
+            clear: both;
         }
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.6);
+        .skin-item {
+            margin-bottom: 25px;
+            background: rgba(218, 165, 32, 0.08);
+            padding: 15px;
+            border-left: 3px solid #daa520;
+        }
+        .skin-name {
+            color: #d4af37;
+            font-size: 16px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .skin-splash {
+            width: 100%;
+            max-height: 250px;
+            border: 2px solid #daa520;
+            object-fit: cover;
+        }
+        @media (max-width: 768px) {
+            .skins-panel {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -145,6 +205,7 @@ $def with (name, title, blurb, version, splash_url)
             </div>
             
             <div class="button-container">
+                <button onclick="toggleSkins()">Skins</button>
                 <a href="/" class="back-button">Volver a Buscar</a>
             </div>
             
@@ -153,5 +214,31 @@ $def with (name, title, blurb, version, splash_url)
             </div>
         </div>
     </div>
+    
+    <div class="skins-panel" id="skinsPanel">
+        <span class="skins-close" onclick="toggleSkins()">&times;</span>
+        <div class="skins-title">Skins</div>
+        $if skins:
+            $for skin in skins:
+                <div class="skin-item">
+                    <div class="skin-name">$skin['name']</div>
+                    <img src="$skin['splash']" alt="$skin['name']" class="skin-splash">
+                </div>
+        $else:
+            <p style="color: #a8860d;">No hay skins disponibles</p>
+    </div>
+    
+    <script>
+        function toggleSkins() {
+            const panel = document.getElementById('skinsPanel');
+            panel.classList.toggle('active');
+        }
+        
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.getElementById('skinsPanel').classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>

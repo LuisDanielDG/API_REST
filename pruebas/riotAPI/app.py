@@ -41,17 +41,14 @@ class champion:
         data = response.json()
         champions_data = data["data"]
         
-        # Normalizar la búsqueda: remover espacios y convertir a minúsculas
         search_normalized = search_name.lower().replace(" ", "")
         
-        # Buscar campeón exacto o por coincidencia
         champion_name = None
         for champ_key in champions_data.keys():
             if champ_key.lower() == search_normalized or champ_key.lower().replace(" ", "") == search_normalized:
                 champion_name = champ_key
                 break
         
-        # Si no encontró exacto, buscar por coincidencia parcial
         if not champion_name:
             for champ_key in champions_data.keys():
                 if search_normalized in champ_key.lower():
@@ -71,10 +68,23 @@ class champion:
             champion_data = requests.get(url_particular).json()
             champ = champion_data["data"][champion_name]
             
-            # Construir URL del splash art
             splash_url = f"https://ddragon.leagueoflegends.com/cdn/img/champion/splash/{champion_name}_0.jpg"
             
-            return render.champion(champ["name"], champ["title"], champ["blurb"], latest_version, splash_url)
+            skins = []
+            if "skins" in champ:
+                for skin in champ["skins"]:
+                    skin_num = skin["num"]
+                    if skin_num == 0:
+                        continue
+                    skin_name = skin["name"]
+                    skin_splash = f"https://ddragon.leagueoflegends.com/cdn/img/champion/splash/{champion_name}_{skin_num}.jpg"
+                    skins.append({
+                        "name": skin_name,
+                        "splash": skin_splash,
+                        "num": skin_num
+                    })
+            
+            return render.champion(champ["name"], champ["title"], champ["blurb"], latest_version, splash_url, skins)
         except Exception as e:
             return render.error(f"Error al cargar el campeon: {str(e)}")
 
