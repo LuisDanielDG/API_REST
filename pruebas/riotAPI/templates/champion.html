@@ -1,0 +1,157 @@
+$def with (name, title, blurb, version, splash_url)
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$name - League of Legends</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Crimson+Text&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Crimson Text, serif;
+            background: linear-gradient(135deg, #0a1e2e 0%, #16395c 50%, #0a1e2e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #e8d7c3;
+        }
+        .container {
+            background: linear-gradient(135deg, rgba(10, 30, 46, 0.95) 0%, rgba(22, 57, 92, 0.95) 100%);
+            border-radius: 0;
+            box-shadow: 0 0 50px rgba(218, 165, 32, 0.3), inset 0 0 30px rgba(218, 165, 32, 0.1);
+            max-width: 800px;
+            width: 100%;
+            border: 3px solid #daa520;
+            padding: 0;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #1a3a52 0%, #0a1e2e 100%);
+            padding: 40px;
+            border-bottom: 3px solid #daa520;
+            text-align: center;
+        }
+        .champion-name {
+            font-family: Playfair Display, serif;
+            color: #daa520;
+            font-size: 48px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(218, 165, 32, 0.5);
+            letter-spacing: 2px;
+        }
+        .champion-title {
+            color: #f0e68c;
+            font-size: 20px;
+            font-style: italic;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .content {
+            padding: 40px;
+        }
+        .champion-blurb {
+            color: #d4af37;
+            font-size: 18px;
+            line-height: 1.8;
+            margin: 30px 0;
+            text-align: justify;
+            background: rgba(218, 165, 32, 0.08);
+            padding: 25px;
+            border-left: 4px solid #daa520;
+            border-right: 4px solid #daa520;
+        }
+        .splash-art {
+            margin: 40px 0;
+            text-align: center;
+        }
+        .splash-art img {
+            max-width: 100%;
+            max-height: 500px;
+            border: 3px solid #daa520;
+            box-shadow: 0 0 30px rgba(218, 165, 32, 0.4), inset 0 0 20px rgba(218, 165, 32, 0.1);
+        }
+        .back-button {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #daa520 0%, #f0e68c 100%);
+            color: #0a1e2e;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 5px 15px rgba(218, 165, 32, 0.4);
+            transition: all 0.3s;
+            font-family: Playfair Display, serif;
+        }
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.6);
+        }
+        .version-info {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #daa520;
+            color: #a8860d;
+            font-size: 14px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        button {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #daa520 0%, #f0e68c 100%);
+            color: #0a1e2e;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 5px 15px rgba(218, 165, 32, 0.4);
+            transition: all 0.3s;
+            font-family: Playfair Display, serif;
+            font-size: 16px;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="champion-name">$name</div>
+            <div class="champion-title">$title</div>
+        </div>
+        
+        <div class="content">
+            <div class="champion-blurb">
+                $blurb
+            </div>
+            
+            <div class="splash-art">
+                <img src="$splash_url" alt="$name Splash Art">
+            </div>
+            
+            <div class="button-container">
+                <a href="/" class="back-button">Volver a Buscar</a>
+            </div>
+            
+            <div class="version-info">
+                Version: $version
+            </div>
+        </div>
+    </div>
+</body>
+</html>
