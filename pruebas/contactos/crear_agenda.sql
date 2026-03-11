@@ -100,3 +100,8 @@ INSERT INTO contactos (nombre, telefono, email) VALUES ('Abigaíl Díaz', '+56 9
 INSERT INTO contactos (nombre, telefono, email) VALUES ('Adalberto Vargas', '+56 9 12345770', 'adalberto.vargas@outlook.com');
 INSERT INTO contactos (nombre, telefono, email) VALUES ('Adela Parra', '+56 9 12345771', 'adela.parra@hotmail.com');
 INSERT INTO contactos (nombre, telefono, email) VALUES ('Adolfo Reyes', '+56 9 12345772', 'adolfo.reyes@gmail.com');
+INSERT INTO contactos (nombre, telefono, email) VALUES ('Ascensión Guzmán', '+56 9 12345773', 'ascension.guzman@yahoo.com');
+INSERT INTO contactos (nombre, telefono, email) VALUES ('Astrid Nuñez', '+56 9 12345774', 'astrid.nunez@outlook.com');
+INSERT INTO contactos (nombre, telefono, email) VALUES ('Aurelio Cortés', '+56 9 12345775', 'aurelio.cortes@hotmail.com');
+INSERT INTO contactos (nombre, telefono, email) VALUES ('Axel Miranda', '+56 9 12345776', 'axel.miranda@gmail.com');
+INSERT INTO contactos (nombre, telefono, email) VALUES ('Benigno Alcázar', '+56 9 12345777', 'benigno.alcazar@outlook.com');
