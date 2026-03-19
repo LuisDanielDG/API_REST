@@ -2,8 +2,46 @@ from fastapi import FastAPI, Query
 from fastapi.responses import JSONResponse
 import sqlite3
 from datetime import datetime
+from faker import Faker
+
+fake = Faker('es_MX')
 
 app = FastAPI()
+
+
+def init_db():
+    conn = sqlite3.connect('agenda.db')
+    cursor = conn.cursor()
+    
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS contactos (
+            id_contacto INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre TEXT NOT NULL,
+            telefono TEXT,
+            email TEXT
+        )
+    ''')
+    
+    cursor.execute('SELECT COUNT(*) FROM contactos')
+    if cursor.fetchone()[0] == 0:
+        Faker.seed(42)
+        datos_prueba = [
+            (
+                fake.name(),
+                fake.phone_number(),
+                fake.email()
+            )
+            for _ in range(100)
+        ]
+        cursor.executemany(
+            'INSERT INTO contactos (nombre, telefono, email) VALUES (?, ?, ?)',
+            datos_prueba
+        )
+    
+    conn.commit()
+    conn.close()
+
+init_db()
 
 @app.get("/", status_code=200)
 def read_root():
